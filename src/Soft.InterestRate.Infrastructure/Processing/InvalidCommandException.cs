@@ -1,0 +1,19 @@
+﻿﻿using System;
+using System.Collections.Generic;
+using FluentValidation.Results;
+
+namespace Wire.Transfer.In.Application.Configuration.Validation
+{
+    /// <summary>
+    ///     Represents any errors from command model
+    /// </summary>
+    public class InvalidCommandException : Exception
+    {
+        public InvalidCommandException(string message, List<ValidationFailure> errors) : base(message)
+        {
+            Errors = errors;
+        }
+
+        public List<ValidationFailure> Errors { get; }
+    }
+}
