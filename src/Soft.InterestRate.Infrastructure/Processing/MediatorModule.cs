@@ -32,7 +32,7 @@
 
             builder.RegisterAssemblyTypes(typeof(IMediator).GetTypeInfo().Assembly).AsImplementedInterfaces();
 
-            Type[] mediatrOpenTypes = new[]
+            Type[] mediatrOpenTypes =
             {
                 typeof(IRequestHandler<,>), typeof(INotificationHandler<>), typeof(IValidator<>)
             };

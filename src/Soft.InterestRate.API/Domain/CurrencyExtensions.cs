@@ -15,7 +15,7 @@
             return currencyDisplay switch
             {
                 CurrencyDisplay.EnUs => FormatToUsdCurrency(value),
-                CurrencyDisplay.PtBr => FormatToBrlCurrency(value),
+                CurrencyDisplay.PtBr => FormatToBrlCurrency(value)
             };
         }
 

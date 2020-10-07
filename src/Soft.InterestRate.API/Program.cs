@@ -15,7 +15,6 @@ namespace Soft.InterestRate.API
         {
             return WebHost.CreateDefaultBuilder(args)
                 .ConfigureLogging(loggingBuilder => { loggingBuilder.ClearProviders(); })
-                .UseUrls("http://*:5001")
                 .UseStartup<Startup>();
         }
     }

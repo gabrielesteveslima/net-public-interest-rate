@@ -13,9 +13,8 @@
 
         [FromQuery(Name = "meses")] public int Months { get; set; }
 
-        [FromQuery(Name = "currency")]
-        public CurrencyDisplay? Currency { get; set; }
-        
+        [FromQuery(Name = "currency")] public CurrencyDisplay? Currency { get; set; }
+
         public DisplayValuesContract ValuesInCurrency { get; set; }
 
         public decimal SimpleInterest { get; set; }

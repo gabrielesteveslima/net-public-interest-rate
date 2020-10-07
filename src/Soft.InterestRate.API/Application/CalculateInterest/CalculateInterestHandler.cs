@@ -10,8 +10,8 @@
 
     public class CalculateInterestHandler : ICommandHandler<CalculateInterestCommand, FinancialContract>
     {
-        private readonly ILogging _logging;
         private readonly IInterestRateQueryApi _interestRateQueryApi;
+        private readonly ILogging _logging;
 
         public CalculateInterestHandler(ILogging logging, IInterestRateQueryApi interestRateQueryApi)
         {
@@ -28,11 +28,11 @@
 
                 Financial financial = new Financial(request.Amount, request.Months);
 
-                var interestRate = await _interestRateQueryApi.GetInterestRate(cancellationToken);
+                decimal interestRate = await _interestRateQueryApi.GetInterestRate(cancellationToken);
                 decimal interestResult = financial.CalculateInterest(interestRate);
 
-                var currencyType = request.CurrencyDisplay ?? CurrencyDisplay.PtBr;
-                
+                CurrencyDisplay currencyType = request.CurrencyDisplay ?? CurrencyDisplay.PtBr;
+
                 return new FinancialContract
                 {
                     Id = financial.Id,
