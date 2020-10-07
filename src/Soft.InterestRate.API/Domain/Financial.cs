@@ -18,7 +18,7 @@ namespace Soft.InterestRate.API.Domain
         public decimal CalculateInterest(decimal interestRate)
         {
             decimal simpleInterest =
-                Decimal.Multiply(Amount, (decimal)Math.Pow((double) (1 + interestRate), Months));
+                Decimal.Multiply(Amount, (decimal)Math.Pow((double)(1 + interestRate), Months));
 
             return simpleInterest.TruncateInTwoPlaces();
         }

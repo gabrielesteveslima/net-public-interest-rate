@@ -19,9 +19,10 @@
         }
 
         [HttpPost("calculajuros")]
-        public async Task<IActionResult> CalculateInterest([FromQuery] FinancialContract request)
+        public async Task<IActionResult> CalculateInterest([FromQuery] FinancialRequest request)
         {
-            var result = await _mediator.Send(new CalculateInterestCommand(request.Amount, request.Months));
+            FinancialContract result =
+                await _mediator.Send(new CalculateInterestCommand(request.Amount, request.Months, request.Currency));
 
             return Ok(result);
         }

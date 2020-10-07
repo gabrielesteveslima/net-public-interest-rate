@@ -10,9 +10,9 @@
 
     public class CalculateInterestHandler : ICommandHandler<CalculateInterestCommand, FinancialContract>
     {
-        private readonly ILogging _logging;
         private readonly IInterestRateQueryApi _interestRateQueryApi;
-        
+        private readonly ILogging _logging;
+
         public CalculateInterestHandler(ILogging logging, IInterestRateQueryApi interestRateQueryApi)
         {
             _logging = logging;
@@ -25,18 +25,27 @@
             try
             {
                 _logging.Information(new {details = "calculate interest", entity = request});
-            
+
                 Financial financial = new Financial(request.Amount, request.Months);
-            
-                var interestRate = await _interestRateQueryApi.GetInterestRate(cancellationToken);
+
+                decimal interestRate = await _interestRateQueryApi.GetInterestRate(cancellationToken);
                 decimal interestResult = financial.CalculateInterest(interestRate);
-            
+
+                CurrencyDisplay currencyType = request.CurrencyDisplay ?? CurrencyDisplay.PtBr;
+
                 return new FinancialContract
                 {
                     Id = financial.Id,
                     Amount = financial.Amount,
                     Months = financial.Months,
-                    SimpleInterest = interestResult
+                    SimpleInterest = interestResult,
+                    ValuesInCurrency = new DisplayValuesContract
+                    {
+                        Type = currencyType.ToString(),
+                        AmountCurrency =
+                            financial.Amount.FormatToCurrency(currencyType),
+                        SimpleInterestCurrency = interestResult.FormatToCurrency(currencyType)
+                    }
                 };
             }
             catch (Exception e)
@@ -47,7 +56,7 @@
                     entity = request,
                     exception = new {inner = e.InnerException, message = e.Message}
                 });
-            
+
                 throw;
             }
         }

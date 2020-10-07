@@ -61,7 +61,6 @@ namespace Soft.InterestRate.API
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            app.UseDeveloperExceptionPage();
             app.UseRouting();
             app.UseAuthorization();
 

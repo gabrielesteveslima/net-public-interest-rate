@@ -1,7 +1,6 @@
 ﻿namespace Soft.InterestRate.API.Application.CalculateInterest.ACL
 {
     using System;
-    using Newtonsoft.Json;
 
     public class InterestRateResponse
     {

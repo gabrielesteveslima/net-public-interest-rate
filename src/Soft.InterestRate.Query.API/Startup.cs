@@ -45,7 +45,6 @@ namespace Soft.InterestRate.Query.API
                     opt.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
                 });
 
-
             services
                 .AddVersioningSystem()
                 .AddSwaggerDocumentation()
