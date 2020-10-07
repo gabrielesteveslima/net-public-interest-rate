@@ -8,6 +8,7 @@
         {
             RuleFor(x => x.Amount).NotEmpty();
             RuleFor(x => x.Months).NotEmpty();
+            RuleFor(x => x.CurrencyDisplay).IsInEnum();
         }
     }
 }
