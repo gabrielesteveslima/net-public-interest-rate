@@ -1,8 +1,8 @@
-﻿﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.DependencyInjection;
-
-namespace Wire.Transfer.In.API.Configuration.Docs
+﻿namespace Soft.InterestRate.Query.API.Configuration.Docs
 {
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.Extensions.DependencyInjection;
+
     /// <summary>
     ///     Represents extension services <see cref="VersioningExtension" />
     /// </summary>

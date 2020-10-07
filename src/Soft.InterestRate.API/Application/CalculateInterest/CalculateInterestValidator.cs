@@ -1,4 +1,4 @@
-﻿namespace Soft.InterestRate.API.Application.Commands
+﻿namespace Soft.InterestRate.API.Application.CalculateInterest
 {
     using FluentValidation;
 

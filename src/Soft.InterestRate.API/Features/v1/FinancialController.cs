@@ -1,9 +1,9 @@
-﻿namespace Soft.InterestRate.Query.API.Features.v1
+﻿namespace Soft.InterestRate.API.Features.v1
 {
-    using System;
-    using Infrastructure.Logs;
+    using System.Threading.Tasks;
+    using Application.CalculateInterest;
+    using MediatR;
     using Microsoft.AspNetCore.Mvc;
-    using Microsoft.Extensions.Logging;
 
     [ApiController]
     [ApiVersion("1")]
@@ -11,20 +11,19 @@
     [Produces("application/json")]
     public class FinancialController : ControllerBase
     {
-        private readonly ILogging _logging;
+        private readonly IMediator _mediator;
 
-        public FinancialController(ILogging logging)
+        public FinancialController(IMediator mediator)
         {
-            _logging = logging;
+            _mediator = mediator;
         }
 
-        [HttpGet("taxajuros")]
-        public FinancialContract Get()
+        [HttpPost("calculajuros")]
+        public async Task<IActionResult> CalculateInterest([FromQuery] FinancialContract request)
         {
-            var financial = new FinancialContract {Id = Guid.NewGuid(), InterestRate = InterestRate.Tax};
+            var result = await _mediator.Send(new CalculateInterestCommand(request.Amount, request.Months));
 
-            _logging.Information(financial);
-            return financial;
+            return Ok(result);
         }
     }
 }

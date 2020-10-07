@@ -1,4 +1,4 @@
-﻿namespace Soft.InterestRate.Query.API.Configuration.Docs
+﻿namespace Soft.InterestRate.API.Configuration.Docs
 {
     using Microsoft.AspNetCore.Builder;
     using Microsoft.Extensions.DependencyInjection;

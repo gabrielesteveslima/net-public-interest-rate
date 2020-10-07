@@ -1,8 +1,7 @@
-namespace Soft.InterestRate.Query.API
+namespace Soft.InterestRate.API
 {
     using Microsoft.AspNetCore;
     using Microsoft.AspNetCore.Hosting;
-    using Microsoft.Extensions.Hosting;
     using Microsoft.Extensions.Logging;
 
     public static class Program
@@ -16,6 +15,7 @@ namespace Soft.InterestRate.Query.API
         {
             return WebHost.CreateDefaultBuilder(args)
                 .ConfigureLogging(loggingBuilder => { loggingBuilder.ClearProviders(); })
+                .UseUrls("http://*:5001")
                 .UseStartup<Startup>();
         }
     }

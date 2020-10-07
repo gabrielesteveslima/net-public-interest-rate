@@ -1,7 +1,7 @@
-﻿﻿using System;
-
-namespace Wire.Transfer.In.Application
+﻿namespace Soft.InterestRate.API.Application
 {
+    using System;
+
     public class CommandBase : ICommand
     {
         public CommandBase()
