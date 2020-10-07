@@ -1,12 +1,13 @@
-﻿﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using FluentValidation;
-using MediatR;
-
-namespace Wire.Transfer.In.Application.Configuration.Validation
+﻿namespace Soft.InterestRate.Infrastructure.Processing
 {
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading;
+    using System.Threading.Tasks;
+    using FluentValidation;
+    using FluentValidation.Results;
+    using MediatR;
+
     /// <summary>
     ///     Dispatcher <see cref="FluentValidation" /> get errors
     /// </summary>
@@ -24,7 +25,7 @@ namespace Wire.Transfer.In.Application.Configuration.Validation
         public Task<TResponse> Handle(TRequest request, CancellationToken cancellationToken,
             RequestHandlerDelegate<TResponse> next)
         {
-            var errors = _validators
+            List<ValidationFailure> errors = _validators
                 .Select(v => v.Validate(request))
                 .SelectMany(result => result.Errors)
                 .Where(error => error != null)

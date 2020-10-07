@@ -1,4 +1,4 @@
-namespace Soft.InterestRate.API
+namespace Soft.InterestRate.API.Domain
 {
     using System;
 
@@ -11,25 +11,16 @@ namespace Soft.InterestRate.API
             Months = months;
         }
 
-        public Guid Id { get; private set; }
-        public decimal Amount { get; private set; }
-        public int Months { get; private set; }
+        public Guid Id { get; }
+        public decimal Amount { get; }
+        public int Months { get; }
 
-        public decimal CalculateInterest()
+        public decimal CalculateInterest(decimal interestRate)
         {
-            var interestRate = 0.01;
-            var simpleInterestTruncated =
-                Decimal.Multiply(Amount, (decimal)Math.Pow(1 + interestRate, Months));
+            decimal simpleInterest =
+                Decimal.Multiply(Amount, (decimal)Math.Pow((double) (1 + interestRate), Months));
 
-            return simpleInterestTruncated.TruncateInTwoPlaces();
-        }
-    }
-
-    public static class FinancialExtensions
-    {
-        public static decimal TruncateInTwoPlaces(this decimal value)
-        {
-            return Math.Truncate(value * 100) / 100;
+            return simpleInterest.TruncateInTwoPlaces();
         }
     }
 }

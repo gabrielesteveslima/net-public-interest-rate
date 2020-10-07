@@ -1,9 +1,9 @@
-﻿﻿using System;
-using System.Collections.Generic;
-using FluentValidation.Results;
-
-namespace Wire.Transfer.In.Application.Configuration.Validation
+﻿namespace Soft.InterestRate.Infrastructure.Processing
 {
+    using System;
+    using System.Collections.Generic;
+    using FluentValidation.Results;
+
     /// <summary>
     ///     Represents any errors from command model
     /// </summary>
