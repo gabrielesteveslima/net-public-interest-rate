@@ -2,6 +2,7 @@
 {
     using System;
     using System.Globalization;
+    using Infrastructure.Processing;
 
     public static class CurrencyExtensions
     {
@@ -15,17 +16,18 @@
             return currencyDisplay switch
             {
                 CurrencyDisplay.EnUs => FormatToUsdCurrency(value),
-                CurrencyDisplay.PtBr => FormatToBrlCurrency(value)
+                CurrencyDisplay.PtBr => FormatToBrlCurrency(value),
+                _ => throw new InvalidCommandException("currency display no t found")
             };
         }
 
-        public static string FormatToBrlCurrency(this decimal value)
+        private static string FormatToBrlCurrency(this decimal value)
         {
             NumberFormatInfo nfi = new CultureInfo("pt-BR", false).NumberFormat;
             return value.ToString("C", nfi);
         }
 
-        public static string FormatToUsdCurrency(this decimal value)
+        private static string FormatToUsdCurrency(this decimal value)
         {
             NumberFormatInfo nfi = new CultureInfo("en-US", false).NumberFormat;
             return value.ToString("C", nfi);

@@ -7,7 +7,7 @@
 
     [ApiController]
     [ApiVersion("1")]
-    [Route("v{version:apiVersion}/[controller]")]
+    [Route("v{version:apiVersion}/financas")]
     [Produces("application/json")]
     public class FinancialController : ControllerBase
     {

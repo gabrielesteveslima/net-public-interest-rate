@@ -27,9 +27,7 @@
                 _logging.Information(new {details = "calculate interest", entity = request});
 
                 Financial financial = new Financial(request.Amount, request.Months);
-
-                decimal interestRate = await _interestRateQueryApi.GetInterestRate(cancellationToken);
-                decimal interestResult = financial.CalculateInterest(interestRate);
+                decimal interestResult = await financial.CalculateInterest(_interestRateQueryApi);
 
                 CurrencyDisplay currencyType = request.CurrencyDisplay ?? CurrencyDisplay.PtBr;
 

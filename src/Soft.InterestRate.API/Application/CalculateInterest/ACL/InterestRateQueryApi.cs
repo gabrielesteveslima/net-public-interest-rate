@@ -21,7 +21,7 @@
             _logging = logging;
         }
 
-        public async Task<decimal> GetInterestRate(CancellationToken cancellationToken)
+        public async Task<decimal> GetInterestRateAsync()
         {
             try
             {
@@ -39,7 +39,7 @@
                             });
                         };
                     })
-                    .GetAsync(cancellationToken)
+                    .GetAsync()
                     .ReceiveJson<InterestRateResponse>();
 
                 return response.InterestRate;

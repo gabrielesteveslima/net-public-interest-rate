@@ -14,6 +14,10 @@
             Errors = errors;
         }
 
+        public InvalidCommandException(string message) : base(message)
+        {
+        }
+
         public List<ValidationFailure> Errors { get; }
     }
 }

@@ -5,6 +5,6 @@
 
     public interface IInterestRateQueryApi
     {
-        Task<decimal> GetInterestRate(CancellationToken cancellationToken);
+        Task<decimal> GetInterestRateAsync();
     }
 }

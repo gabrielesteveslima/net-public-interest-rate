@@ -1,6 +1,8 @@
 namespace Soft.InterestRate.API.Domain
 {
     using System;
+    using System.Threading.Tasks;
+    using Application.CalculateInterest.ACL;
 
     public class Financial
     {
@@ -15,8 +17,10 @@ namespace Soft.InterestRate.API.Domain
         public decimal Amount { get; }
         public int Months { get; }
 
-        public decimal CalculateInterest(decimal interestRate)
+        public async Task<decimal> CalculateInterest(IInterestRateQueryApi interestRateQueryApi)
         {
+            var interestRate = await interestRateQueryApi.GetInterestRateAsync();
+
             decimal simpleInterest =
                 Decimal.Multiply(Amount, (decimal)Math.Pow((double)(1 + interestRate), Months));
 
