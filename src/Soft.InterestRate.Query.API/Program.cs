@@ -15,7 +15,7 @@ namespace Soft.InterestRate.Query.API
         {
             return WebHost.CreateDefaultBuilder(args)
                 .ConfigureLogging(loggingBuilder => { loggingBuilder.ClearProviders(); })
-                .UseUrls("http://*:5000", "http://localhost")
+                .UseUrls("http://*:5000")
                 .UseStartup<Startup>();
         }
     }
