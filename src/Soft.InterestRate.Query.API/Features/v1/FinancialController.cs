@@ -21,7 +21,7 @@
         [HttpGet("taxajuros")]
         public FinancialContract Get()
         {
-            FinancialContract financial =
+            var financial =
                 new FinancialContract {Id = Guid.NewGuid(), InterestRate = Financial.InterestRate};
 
             _logging.Information(financial);

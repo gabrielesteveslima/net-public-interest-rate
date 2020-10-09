@@ -5,7 +5,6 @@
     using System.Threading;
     using System.Threading.Tasks;
     using FluentValidation;
-    using FluentValidation.Results;
     using MediatR;
 
     /// <summary>
@@ -25,7 +24,7 @@
         public Task<TResponse> Handle(TRequest request, CancellationToken cancellationToken,
             RequestHandlerDelegate<TResponse> next)
         {
-            List<ValidationFailure> errors = _validators
+            var errors = _validators
                 .Select(v => v.Validate(request))
                 .SelectMany(result => result.Errors)
                 .Where(error => error != null)

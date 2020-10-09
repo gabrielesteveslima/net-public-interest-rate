@@ -1,7 +1,6 @@
 ﻿namespace Soft.InterestRate.API.Application.CalculateInterest.ACL
 {
     using System;
-    using System.Threading;
     using System.Threading.Tasks;
     using Flurl;
     using Flurl.Http;
@@ -25,7 +24,7 @@
         {
             try
             {
-                InterestRateResponse response = await _interestRateApiQueryConfig.Host
+                var response = await _interestRateApiQueryConfig.Host
                     .AppendPathSegment(_interestRateApiQueryConfig.Path)
                     .ConfigureRequest(setup =>
                     {
@@ -40,7 +39,7 @@
                         };
                     })
                     .GetAsync()
-                    .ReceiveJson<InterestRateResponse>();
+                    .ReceiveJson<InterestRateResponse>() ?? new InterestRateResponse();
 
                 return response.InterestRate;
             }

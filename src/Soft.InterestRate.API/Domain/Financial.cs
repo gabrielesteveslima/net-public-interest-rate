@@ -21,7 +21,7 @@ namespace Soft.InterestRate.API.Domain
         {
             var interestRate = await interestRateQueryApi.GetInterestRateAsync();
 
-            decimal simpleInterest =
+            var simpleInterest =
                 Decimal.Multiply(Amount, (decimal)Math.Pow((double)(1 + interestRate), Months));
 
             return simpleInterest.TruncateInTwoPlaces();

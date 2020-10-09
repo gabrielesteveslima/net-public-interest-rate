@@ -5,7 +5,6 @@
     using System.Threading.Tasks;
     using ACL;
     using Domain;
-    using Features;
     using Infrastructure.Logs;
 
     public class CalculateInterestHandler : ICommandHandler<CalculateInterestCommand, FinancialContract>
@@ -26,10 +25,10 @@
             {
                 _logging.Information(new {details = "calculate interest", entity = request});
 
-                Financial financial = new Financial(request.Amount, request.Months);
-                decimal interestResult = await financial.CalculateInterest(_interestRateQueryApi);
+                var financial = new Financial(request.Amount, request.Months);
+                var interestResult = await financial.CalculateInterest(_interestRateQueryApi);
 
-                CurrencyDisplay currencyType = request.CurrencyDisplay ?? CurrencyDisplay.PtBr;
+                var currencyType = request.CurrencyDisplay ?? CurrencyDisplay.PtBr;
 
                 return new FinancialContract
                 {

@@ -1,7 +1,6 @@
 ﻿namespace Soft.InterestRate.Infrastructure.Resilience
 {
     using System;
-    using System.Collections.Generic;
     using System.Linq;
     using System.Net.Http;
     using Polly;
@@ -15,8 +14,8 @@
         {
             get
             {
-                TimeSpan maxDelay = TimeSpan.FromSeconds(45);
-                IEnumerable<TimeSpan> delay = Backoff
+                var maxDelay = TimeSpan.FromSeconds(45);
+                var delay = Backoff
                     .DecorrelatedJitterBackoffV2(TimeSpan.FromSeconds(5), 5)
                     .Select(s => TimeSpan.FromTicks(Math.Min(s.Ticks, maxDelay.Ticks)));
 

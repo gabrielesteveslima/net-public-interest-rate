@@ -23,13 +23,13 @@
 
         private static string FormatToBrlCurrency(this decimal value)
         {
-            NumberFormatInfo nfi = new CultureInfo("pt-BR", false).NumberFormat;
+            var nfi = new CultureInfo("pt-BR", false).NumberFormat;
             return value.ToString("C", nfi);
         }
 
         private static string FormatToUsdCurrency(this decimal value)
         {
-            NumberFormatInfo nfi = new CultureInfo("en-US", false).NumberFormat;
+            var nfi = new CultureInfo("en-US", false).NumberFormat;
             return value.ToString("C", nfi);
         }
     }

@@ -16,24 +16,24 @@
         public static IServiceProvider Initialize(
             IServiceCollection services, IConfiguration configuration)
         {
-            IServiceProvider serviceProvider = CreateAutofacServiceProvider(services, configuration);
+            var serviceProvider = CreateAutofacServiceProvider(services, configuration);
             return serviceProvider;
         }
 
         private static IServiceProvider CreateAutofacServiceProvider(
             IServiceCollection services, IConfiguration configuration)
         {
-            ContainerBuilder container = new ContainerBuilder();
+            var container = new ContainerBuilder();
 
             container.Populate(services);
             container.RegisterModule(new LogModule());
             container.RegisterModule(new ResilienceModule());
             container.RegisterModule(new MediatorModule(configuration));
 
-            IContainer buildContainer = container.Build();
+            var buildContainer = container.Build();
 
             ServiceLocator.SetLocatorProvider(() => new AutofacServiceLocator(buildContainer));
-            AutofacServiceProvider serviceProvider = new AutofacServiceProvider(buildContainer);
+            var serviceProvider = new AutofacServiceProvider(buildContainer);
             return serviceProvider;
         }
     }

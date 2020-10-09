@@ -9,13 +9,13 @@
     [TestFixture]
     public class FinancialShould
     {
-        private Mock<IInterestRateQueryApi> _mock;
-
         [SetUp]
         public void Setup()
         {
             _mock = new Mock<IInterestRateQueryApi>();
         }
+
+        private Mock<IInterestRateQueryApi> _mock;
 
         [TestCase(200.20, 5, 210.41)]
         [TestCase(1000.50, 3, 1030.81)]

@@ -37,7 +37,7 @@
                 typeof(IRequestHandler<,>), typeof(INotificationHandler<>), typeof(IValidator<>)
             };
 
-            foreach (Type mediatrOpenType in mediatrOpenTypes)
+            foreach (var mediatrOpenType in mediatrOpenTypes)
             {
                 builder
                     .RegisterAssemblyTypes(Assembly.Load(_configuration["ProjectName"]))
@@ -50,7 +50,7 @@
 
             builder.Register<ServiceFactory>(ctx =>
             {
-                IComponentContext c = ctx.Resolve<IComponentContext>();
+                var c = ctx.Resolve<IComponentContext>();
                 return t => c.Resolve(t);
             });
 
@@ -83,11 +83,11 @@
                 Service service,
                 Func<Service, IEnumerable<IComponentRegistration>> registrationAccessor)
             {
-                IEnumerable<IComponentRegistration>
+                var
                     components = _source.RegistrationsFor(service, registrationAccessor);
-                foreach (IComponentRegistration c in components)
+                foreach (var c in components)
                 {
-                    IEnumerable<Type> defs = c.Target.Services
+                    var defs = c.Target.Services
                         .OfType<TypedService>()
                         .Select(x => x.ServiceType.GetGenericTypeDefinition());
 

@@ -1,4 +1,4 @@
-﻿namespace Soft.InterestRate.API.Features
+﻿namespace Soft.InterestRate.API.Application.CalculateInterest
 {
     using System;
     using Domain;

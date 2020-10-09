@@ -1,7 +1,6 @@
 ﻿namespace Soft.InterestRate.API.Application.CalculateInterest
 {
     using Domain;
-    using Features;
 
     public class CalculateInterestCommand : CommandBase<FinancialContract>
     {
