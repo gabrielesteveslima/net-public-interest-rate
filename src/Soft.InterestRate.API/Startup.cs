@@ -4,6 +4,8 @@ namespace Soft.InterestRate.API
     using Application.CalculateInterest.ACL;
     using Configuration;
     using Configuration.Docs;
+    using Configuration.ProblemDetails;
+    using Hellang.Middleware.ProblemDetails;
     using Infrastructure;
     using JsonApiSerializer.ContractResolvers;
     using Microsoft.AspNetCore.Builder;
@@ -51,6 +53,7 @@ namespace Soft.InterestRate.API
             services
                 .AddVersioningSystem()
                 .AddSwaggerDocumentation()
+                .AddProblemDetailsMiddleware()
                 .AddHealthChecks();
 
             services.Configure<InterestRateApiQueryConfig>(Configuration.GetSection("InterestRateApiQueryConfig"));
@@ -64,6 +67,7 @@ namespace Soft.InterestRate.API
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseProblemDetails();
             app.UseRouting();
             app.UseEndpoints(endpoints =>
             {
