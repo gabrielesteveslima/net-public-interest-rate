@@ -17,7 +17,7 @@
             {
                 CurrencyDisplay.EnUs => FormatToUsdCurrency(value),
                 CurrencyDisplay.PtBr => FormatToBrlCurrency(value),
-                _ => throw new InvalidCommandException("currency display no t found")
+                _ => throw new InvalidCommandException("currency display not found")
             };
         }
 

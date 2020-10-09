@@ -6,9 +6,9 @@
     {
         public CalculateInterestValidator()
         {
-            RuleFor(x => x.Amount).NotEmpty();
-            RuleFor(x => x.Months).NotEmpty();
-            RuleFor(x => x.CurrencyDisplay).IsInEnum();
+            RuleFor(x => x.Amount).NotEmpty().OverridePropertyName("valorInicial");
+            RuleFor(x => x.Months).NotEmpty().OverridePropertyName("meses");
+            RuleFor(x => x.CurrencyDisplay).IsInEnum().OverridePropertyName("moeda");
         }
     }
 }
