@@ -3,7 +3,7 @@
     using Domain;
     using Microsoft.AspNetCore.Mvc;
 
-    public class FinancialRequest
+    public class FinancialQueryParams
     {
         [FromQuery(Name = "valorInicial")] public decimal Amount { get; set; }
 

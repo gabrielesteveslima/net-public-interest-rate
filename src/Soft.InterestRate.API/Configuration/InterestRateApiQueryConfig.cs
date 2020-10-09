@@ -1,4 +1,4 @@
-﻿namespace Soft.InterestRate.API
+﻿namespace Soft.InterestRate.API.Configuration
 {
     public class InterestRateApiQueryConfig
     {

@@ -2,6 +2,7 @@ namespace Soft.InterestRate.API
 {
     using System;
     using Application.CalculateInterest.ACL;
+    using Configuration;
     using Configuration.Docs;
     using Infrastructure;
     using JsonApiSerializer.ContractResolvers;
@@ -53,6 +54,8 @@ namespace Soft.InterestRate.API
                 .AddHealthChecks();
 
             services.Configure<InterestRateApiQueryConfig>(Configuration.GetSection("InterestRateApiQueryConfig"));
+            services.Configure<ProjectConfig>(Configuration.GetSection("ProjectConfig"));
+
             services.AddScoped<IInterestRateQueryApi, InterestRateQueryApi>();
 
             return ApplicationStartup.Initialize(

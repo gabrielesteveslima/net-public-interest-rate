@@ -2,6 +2,7 @@
 {
     using System;
     using System.Threading.Tasks;
+    using Configuration;
     using Flurl;
     using Flurl.Http;
     using Flurl.Http.Configuration;

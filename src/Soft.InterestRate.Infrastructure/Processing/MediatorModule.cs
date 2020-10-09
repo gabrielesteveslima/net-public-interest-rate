@@ -40,7 +40,7 @@
             foreach (var mediatrOpenType in mediatrOpenTypes)
             {
                 builder
-                    .RegisterAssemblyTypes(Assembly.Load(_configuration["ProjectName"]))
+                    .RegisterAssemblyTypes(Assembly.Load(_configuration["ProjectConfig:Name"]))
                     .AsClosedTypesOf(mediatrOpenType)
                     .AsImplementedInterfaces();
             }
