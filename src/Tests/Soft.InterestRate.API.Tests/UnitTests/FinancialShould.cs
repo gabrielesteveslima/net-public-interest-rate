@@ -3,6 +3,7 @@
     using System.Threading.Tasks;
     using Application.CalculateInterest.ACL;
     using Domain;
+    using FluentAssertions;
     using Moq;
     using NUnit.Framework;
 
@@ -27,7 +28,7 @@
             var financial = new Financial(amount, months);
             var actualResult = await financial.CalculateInterest(_mock.Object);
 
-            Assert.AreEqual(expectedResult, actualResult);
+            actualResult.Should().Be(expectedResult).And.BeOfType(typeof(decimal));
         }
     }
 }

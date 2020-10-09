@@ -44,7 +44,7 @@
                 .WithVerb(HttpMethod.Get)
                 .Times(1);
 
-            result.Should().NotBe(null);
+            result.Should().NotBe(null).And.BeOfType(typeof(decimal));
         }
     }
 }
