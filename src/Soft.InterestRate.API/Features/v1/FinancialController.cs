@@ -2,8 +2,10 @@
 {
     using System.Threading.Tasks;
     using Application.CalculateInterest;
+    using Configuration;
     using MediatR;
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.Extensions.Options;
 
     [ApiController]
     [ApiVersion("1")]
@@ -19,10 +21,10 @@
         }
 
         [HttpPost("calculajuros")]
-        public async Task<IActionResult> CalculateInterest([FromQuery] FinancialRequest request)
+        public async Task<IActionResult> CalculateInterest([FromQuery] FinancialQueryParams queryParams)
         {
             var result =
-                await _mediator.Send(new CalculateInterestCommand(request.Amount, request.Months, request.Currency));
+                await _mediator.Send(new CalculateInterestCommand(queryParams.Amount, queryParams.Months, queryParams.Currency));
 
             return Ok(result);
         }

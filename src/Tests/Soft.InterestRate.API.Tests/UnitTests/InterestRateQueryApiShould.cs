@@ -3,6 +3,7 @@
     using System.Net.Http;
     using System.Threading.Tasks;
     using Application.CalculateInterest.ACL;
+    using Configuration;
     using FluentAssertions;
     using Flurl.Http.Testing;
     using Infrastructure.Logs;
