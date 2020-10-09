@@ -1,8 +1,8 @@
-﻿﻿using System;
-using MediatR;
-
-namespace Wire.Transfer.In.Application
+﻿namespace Soft.InterestRate.API.Application
 {
+    using System;
+    using MediatR;
+
     public interface ICommand : IRequest
     {
         Guid Id { get; }

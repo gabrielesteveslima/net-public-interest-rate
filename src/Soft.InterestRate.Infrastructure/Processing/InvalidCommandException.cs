@@ -1,9 +1,9 @@
-﻿﻿using System;
-using System.Collections.Generic;
-using FluentValidation.Results;
-
-namespace Wire.Transfer.In.Application.Configuration.Validation
+﻿namespace Soft.InterestRate.Infrastructure.Processing
 {
+    using System;
+    using System.Collections.Generic;
+    using FluentValidation.Results;
+
     /// <summary>
     ///     Represents any errors from command model
     /// </summary>
@@ -12,6 +12,10 @@ namespace Wire.Transfer.In.Application.Configuration.Validation
         public InvalidCommandException(string message, List<ValidationFailure> errors) : base(message)
         {
             Errors = errors;
+        }
+
+        public InvalidCommandException(string message) : base(message)
+        {
         }
 
         public List<ValidationFailure> Errors { get; }

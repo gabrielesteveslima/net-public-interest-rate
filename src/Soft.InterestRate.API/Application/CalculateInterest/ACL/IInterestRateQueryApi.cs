@@ -4,6 +4,6 @@
 
     public interface IInterestRateQueryApi
     {
-        Task<double> G
+        Task<decimal> GetInterestRateAsync();
     }
 }

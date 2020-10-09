@@ -1,27 +1,22 @@
-﻿namespace Soft.InterestRate.API.Application.Commands
+﻿namespace Soft.InterestRate.API.Application.CalculateInterest
 {
     using System;
     using System.Threading;
     using System.Threading.Tasks;
+    using ACL;
     using Domain;
-    using Features;
-    using Flurl;
-    using Flurl.Http;
     using Infrastructure.Logs;
-    using Microsoft.Extensions.Options;
 
     public class CalculateInterestHandler : ICommandHandler<CalculateInterestCommand, FinancialContract>
     {
-        private readonly InterestRateApiQueryConfig _interestRateApiQueryConfig;
+        private readonly IInterestRateQueryApi _interestRateQueryApi;
         private readonly ILogging _logging;
 
-        public CalculateInterestHandler(IOptions<InterestRateApiQueryConfig> interestRateApiQueryConfig,
-            ILogging logging)
+        public CalculateInterestHandler(ILogging logging, IInterestRateQueryApi interestRateQueryApi)
         {
-            _interestRateApiQueryConfig = interestRateApiQueryConfig.Value;
             _logging = logging;
+            _interestRateQueryApi = interestRateQueryApi;
         }
-
 
         public async Task<FinancialContract> Handle(CalculateInterestCommand request,
             CancellationToken cancellationToken)
@@ -30,32 +25,24 @@
             {
                 _logging.Information(new {details = "calculate interest", entity = request});
 
-                Financial financial = new Financial(request.Amount, request.Months);
+                var financial = new Financial(request.Amount, request.Months);
+                var interestResult = await financial.CalculateInterest(_interestRateQueryApi);
 
-                double interestRate = (double)await _interestRateApiQueryConfig.Host
-                    .AppendPathSegment(_interestRateApiQueryConfig.Path)
-                    .ConfigureRequest(setup =>
-                    {
-                        setup.BeforeCall = call =>
-                        {
-                            _logging.Information(new
-                            {
-                                details = "calling InterestRateApiQuery",
-                                request = new {requestUri = call.Request.RequestUri, boby = call.Request.Content}
-                            });
-                        };
-                    })
-                    .GetAsync(cancellationToken)
-                    .ReceiveJson<object>();
-
-                decimal interestResult = financial.CalculateInterest(interestRate);
+                var currencyType = request.CurrencyDisplay ?? CurrencyDisplay.PtBr;
 
                 return new FinancialContract
                 {
                     Id = financial.Id,
                     Amount = financial.Amount,
                     Months = financial.Months,
-                    SimpleInterest = interestResult
+                    SimpleInterest = interestResult,
+                    ValuesInCurrency = new DisplayValuesContract
+                    {
+                        Type = currencyType.ToString(),
+                        AmountCurrency =
+                            financial.Amount.FormatToCurrency(currencyType),
+                        SimpleInterestCurrency = interestResult.FormatToCurrency(currencyType)
+                    }
                 };
             }
             catch (Exception e)

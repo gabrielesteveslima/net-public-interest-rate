@@ -1,9 +1,9 @@
-﻿﻿using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.OpenApi.Models;
-
-namespace Wire.Transfer.In.API.Configuration.Docs
+﻿namespace Soft.InterestRate.Query.API.Configuration.Docs
 {
+    using Microsoft.AspNetCore.Builder;
+    using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.OpenApi.Models;
+
     /// <summary>
     ///     Represents extension services <see cref="SwaggerExtension" />
     /// </summary>
@@ -13,11 +13,7 @@ namespace Wire.Transfer.In.API.Configuration.Docs
         {
             services.AddSwaggerGen(setup =>
             {
-                setup.SwaggerDoc("v1", new OpenApiInfo
-                {
-                    Title = "Wire Transfer In API V1",
-                    Version = "v1"
-                });
+                setup.SwaggerDoc("v1", new OpenApiInfo {Title = "Interest Rate API V1", Version = "v1"});
             });
 
             return services;
@@ -29,7 +25,7 @@ namespace Wire.Transfer.In.API.Configuration.Docs
 
             app.UseSwaggerUI(setup =>
             {
-                setup.SwaggerEndpoint("/swagger/v1/swagger.json", "Wire Transfer In API V1");
+                setup.SwaggerEndpoint("/swagger/v1/swagger.json", "Interest Rate API V1");
             });
         }
     }

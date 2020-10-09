@@ -1,18 +1,15 @@
-﻿﻿using System.Net.Http;
-using System.Threading;
-using System.Threading.Tasks;
-using Flurl.Http.Configuration;
-
-namespace Wire.Transfer.In.Infrastructure.Resilience
+﻿namespace Soft.InterestRate.Infrastructure.Resilience
 {
+    using System.Net.Http;
+    using System.Threading;
+    using System.Threading.Tasks;
+    using Flurl.Http.Configuration;
+
     public class PollyHttpClientFactory : DefaultHttpClientFactory
     {
         public override HttpMessageHandler CreateMessageHandler()
         {
-            return new PolicyHandler
-            {
-                InnerHandler = base.CreateMessageHandler()
-            };
+            return new PolicyHandler {InnerHandler = base.CreateMessageHandler()};
         }
     }
 

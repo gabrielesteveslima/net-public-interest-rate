@@ -1,6 +1,8 @@
-namespace Soft.InterestRate.API
+namespace Soft.InterestRate.API.Domain
 {
     using System;
+    using System.Threading.Tasks;
+    using Application.CalculateInterest.ACL;
 
     public class Financial
     {
@@ -11,25 +13,18 @@ namespace Soft.InterestRate.API
             Months = months;
         }
 
-        public Guid Id { get; private set; }
-        public decimal Amount { get; private set; }
-        public int Months { get; private set; }
+        public Guid Id { get; }
+        public decimal Amount { get; }
+        public int Months { get; }
 
-        public decimal CalculateInterest()
+        public async Task<decimal> CalculateInterest(IInterestRateQueryApi interestRateQueryApi)
         {
-            var interestRate = 0.01;
-            var simpleInterestTruncated =
-                Decimal.Multiply(Amount, (decimal)Math.Pow(1 + interestRate, Months));
+            var interestRate = await interestRateQueryApi.GetInterestRateAsync();
 
-            return simpleInterestTruncated.TruncateInTwoPlaces();
-        }
-    }
+            var simpleInterest =
+                Decimal.Multiply(Amount, (decimal)Math.Pow((double)(1 + interestRate), Months));
 
-    public static class FinancialExtensions
-    {
-        public static decimal TruncateInTwoPlaces(this decimal value)
-        {
-            return Math.Truncate(value * 100) / 100;
+            return simpleInterest.TruncateInTwoPlaces();
         }
     }
 }

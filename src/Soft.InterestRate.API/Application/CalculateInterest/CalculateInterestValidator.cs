@@ -1,4 +1,4 @@
-﻿namespace Soft.InterestRate.API.Application.Commands
+﻿namespace Soft.InterestRate.API.Application.CalculateInterest
 {
     using FluentValidation;
 
@@ -8,6 +8,7 @@
         {
             RuleFor(x => x.Amount).NotEmpty();
             RuleFor(x => x.Months).NotEmpty();
+            RuleFor(x => x.CurrencyDisplay).IsInEnum();
         }
     }
 }

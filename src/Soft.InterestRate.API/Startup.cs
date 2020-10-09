@@ -1,6 +1,7 @@
-namespace Soft.InterestRate.Query.API
+namespace Soft.InterestRate.API
 {
     using System;
+    using Application.CalculateInterest.ACL;
     using Configuration.Docs;
     using Infrastructure;
     using JsonApiSerializer.ContractResolvers;
@@ -18,7 +19,11 @@ namespace Soft.InterestRate.Query.API
     {
         public Startup(IConfiguration configuration)
         {
-            if (configuration == null) throw new ArgumentNullException(nameof(configuration));
+            if (configuration == null)
+            {
+                throw new ArgumentNullException(nameof(configuration));
+            }
+
             configuration = new ConfigurationBuilder()
                 .AddJsonFile("appsettings.json")
                 .AddEnvironmentVariables()
@@ -40,23 +45,23 @@ namespace Soft.InterestRate.Query.API
                     };
                     opt.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
                 });
-            
-            
+
+
             services
                 .AddVersioningSystem()
                 .AddSwaggerDocumentation()
                 .AddHealthChecks();
-            
+
+            services.Configure<InterestRateApiQueryConfig>(Configuration.GetSection("InterestRateApiQueryConfig"));
+            services.AddScoped<IInterestRateQueryApi, InterestRateQueryApi>();
+
             return ApplicationStartup.Initialize(
-                services,
-                Configuration);
+                services, Configuration);
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             app.UseRouting();
-            app.UseAuthorization();
-
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

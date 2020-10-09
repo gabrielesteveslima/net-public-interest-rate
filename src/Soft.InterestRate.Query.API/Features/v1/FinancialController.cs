@@ -1,24 +1,31 @@
-﻿namespace Soft.InterestRate.Query.API.Controllers
+﻿namespace Soft.InterestRate.Query.API.Features.v1
 {
-    using System.Collections.Generic;
+    using System;
+    using Domain;
+    using Infrastructure.Logs;
     using Microsoft.AspNetCore.Mvc;
-    using Microsoft.Extensions.Logging;
 
     [ApiController]
-    [Route("[controller]")]
+    [ApiVersion("1")]
+    [Route("v{version:apiVersion}/financas")]
+    [Produces("application/json")]
     public class FinancialController : ControllerBase
     {
-        private readonly ILogger<FinancialController> _logger;
+        private readonly ILogging _logging;
 
-        public FinancialController(ILogger<FinancialController> logger)
+        public FinancialController(ILogging logging)
         {
-            _logger = logger;
+            _logging = logging;
         }
 
         [HttpGet("taxajuros")]
-        public IEnumerable<InterestRate> Get()
+        public FinancialContract Get()
         {
-            return new[] {new InterestRate()};
+            var financial =
+                new FinancialContract {Id = Guid.NewGuid(), InterestRate = Financial.InterestRate};
+
+            _logging.Information(financial);
+            return financial;
         }
     }
 }

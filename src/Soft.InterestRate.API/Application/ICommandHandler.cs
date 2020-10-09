@@ -1,7 +1,7 @@
-﻿﻿using MediatR;
-
-namespace Wire.Transfer.In.Application
+﻿namespace Soft.InterestRate.API.Application
 {
+    using MediatR;
+
     public interface ICommandHandler<in TCommand> :
         IRequestHandler<TCommand> where TCommand : ICommand
     {

@@ -1,20 +1,20 @@
-﻿﻿using System;
-using System.Linq;
-using System.Net.Http;
-using Polly;
-using Polly.Contrib.WaitAndRetry;
-using Polly.Retry;
-using Wire.Transfer.In.Infrastructure.Logs;
-
-namespace Wire.Transfer.In.Infrastructure.Resilience
+﻿namespace Soft.InterestRate.Infrastructure.Resilience
 {
+    using System;
+    using System.Linq;
+    using System.Net.Http;
+    using Polly;
+    using Polly.Contrib.WaitAndRetry;
+    using Polly.Retry;
+    using Serilog;
+
     public static class FlurExtensions
     {
         private static AsyncRetryPolicy<HttpResponseMessage> RetryPolicy
         {
             get
             {
-                var maxDelay = TimeSpan.FromMinutes(3);
+                var maxDelay = TimeSpan.FromSeconds(45);
                 var delay = Backoff
                     .DecorrelatedJitterBackoffV2(TimeSpan.FromSeconds(5), 5)
                     .Select(s => TimeSpan.FromTicks(Math.Min(s.Ticks, maxDelay.Ticks)));
